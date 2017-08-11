@@ -3,7 +3,7 @@ class Conjure < Formula
   homepage "https://conjure.readthedocs.io/en/latest/welcome.html"
   url "https://github.com/conjure-cp/conjure/archive/v2.0.0.tar.gz"
   version "2.0.0"
-  sha256 ""
+  sha256 "20ca595cfd539644c714fe401b366f995ef14e2e137212f8d8f982a10daf6ff2"
 
   depends_on "haskell-stack" => :build
 
