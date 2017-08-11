@@ -8,17 +8,17 @@ class Conjure < Formula
   depends_on "haskell-stack" => :build
 
   def install
-    system "cp" "etc/hs-deps/stack-8.0.yaml" "stack.yaml"
-    system "stack" "setup"
-    system "bash" "etc/build/version.sh"
-    system "stack" "runhaskell" "etc/build/gen_Operator.hs"
-    system "stack" "runhaskell" "etc/build/gen_Expression.hs"
-    system "stack" "install"
-    system "rm" "stack.yaml"
+    system "cp", "etc/hs-deps/stack-8.0.yaml", "stack.yaml"
+    system "stack", "setup"
+    system "bash", "etc/build/version.sh"
+    system "stack", "runhaskell", "etc/build/gen_Operator.hs"
+    system "stack", "runhaskell", "etc/build/gen_Expression.hs"
+    system "stack", "install"
+    system "rm", "stack.yaml"
   end
 
   test do
-    system "#{bin}/conjure" "--version"
+    system "#{bin}/conjure", "--version"
   end
 
   def caveats; <<-EOS.undent
