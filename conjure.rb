@@ -13,7 +13,7 @@ class Conjure < Formula
     system "bash", "etc/build/version.sh"
     system "stack", "runhaskell", "etc/build/gen_Operator.hs"
     system "stack", "runhaskell", "etc/build/gen_Expression.hs"
-    system "stack", "install"
+    system "stack", "install", "--local-bin-path", "#{bin}"
     system "rm", "stack.yaml"
   end
 
