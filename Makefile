@@ -22,20 +22,10 @@ install:
 	@echo "Set the environment variable BIN_DIR to change this location"
 	@echo "For example: \"BIN_DIR=your/preferred/path make install\""
 	@echo ""
-	@mkdir -p ${BIN_DIR}
-	@echo Using Stack file: etc/hs-deps/stack-${GHC_VERSION}.yaml
 	@if ${BUILD_TESTS} ; then echo "BUILD_TESTS=true"; fi
 	@if ${CI} ; then echo "CI=true"; fi
-	@bash etc/build/install-stack.sh
-	@cp etc/hs-deps/stack-${GHC_VERSION}.yaml stack.yaml
-	@if  [ ${GHC_VERSION} == "head" ] ; then\
-		stack --local-bin-path ${BIN_DIR} setup --resolver nightly;\
-	else\
-		stack --local-bin-path ${BIN_DIR} setup;\
-	fi
-	@bash etc/build/version.sh
-	@stack runhaskell etc/build/gen_Operator.hs
-	@stack runhaskell etc/build/gen_Expression.hs
+	@make buildTools
+	@make preinstall
 	@bash etc/build/install.sh
 	@etc/build/copy-conjure-branch.sh
 	@cp -r etc/savilerow/* ${BIN_DIR}
@@ -52,6 +42,18 @@ test:
 		ls .stack-work/install/*/*/*/hpc/combined/custom;\
 	else\
 		stack test --test-arguments '--limit-time ${LIMIT_TIME}';\
+	fi
+
+.PHONY: buildTools
+buildTools:
+	@mkdir -p ${BIN_DIR}
+	@echo Using Stack file: etc/hs-deps/stack-${GHC_VERSION}.yaml
+	@bash etc/build/install-stack.sh
+	@cp etc/hs-deps/stack-${GHC_VERSION}.yaml stack.yaml
+	@if  [ ${GHC_VERSION} == "head" ] ; then\
+		stack --local-bin-path ${BIN_DIR} setup --resolver nightly;\
+	else\
+		stack --local-bin-path ${BIN_DIR} setup;\
 	fi
 
 .PHONY: preinstall
