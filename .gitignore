@@ -37,3 +37,6 @@ gitignored
 
 # .MINION files
 .MINION*
+
+# VS Code devcontainer logs
+.vscode/*.log
