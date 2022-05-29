@@ -6,9 +6,10 @@
   // Update the 'dockerfile' property if you aren't using the standard 'Dockerfile' filename.
   "build": {
           "dockerfile": "Dockerfile",
+          "context": "..",
           "args": {
             // Update 'VARIANT' to pick a Haskell version: 9, 8
-			"VARIANT": "8",
+			"VARIANT": "8-slim",
 			"INSTALL_ZSH": "false"
           }
   },
@@ -30,7 +31,7 @@
   // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "make buildTools",
+  "postCreateCommand": "make deps",
 
 
   // Comment out to connect as root instead. To add a non-root user, see: https://aka.ms/vscode-remote/containers/non-root.

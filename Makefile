@@ -24,7 +24,7 @@ install:
 	@echo ""
 	@if ${BUILD_TESTS} ; then echo "BUILD_TESTS=true"; fi
 	@if ${CI} ; then echo "CI=true"; fi
-	@make buildTools
+	@make deps
 	@make preinstall
 	@bash etc/build/install.sh
 	@etc/build/copy-conjure-branch.sh
@@ -44,8 +44,8 @@ test:
 		stack test --test-arguments '--limit-time ${LIMIT_TIME}';\
 	fi
 
-.PHONY: buildTools
-buildTools:
+.PHONY: deps
+deps:
 	@mkdir -p ${BIN_DIR}
 	@echo Using Stack file: etc/hs-deps/stack-${GHC_VERSION}.yaml
 	@bash etc/build/install-stack.sh
